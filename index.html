@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Dela+Gothic+One&display=swap"
+        rel="stylesheet">
+
+    <title>Antonova E. test assignment</title>
+    <style>
+        :root {
+            --main-accent: #f859a8;
+            --secondary-accent: #f6ff00;
+
+            --main-text: #b3afc0;
+            --text-bright: #e4e2e9;
+            --text-accent: #0e0d11;
+
+            --main-bg: hsl(255, 13%, 6%);
+            --inner-bg: hsl(257, 11%, 12%);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        * {
+            outline-color: var(--main-accent);
+        }
+
+        *::-webkit-scrollbar {
+            height: 8px;
+            width: 8px;
+            transition: .3s ease-in-out;
+        }
+
+        *::-webkit-scrollbar-track {
+            border-radius: 8px;
+            background-color: #b3afc0;
+        }
+
+        *::-webkit-scrollbar-thumb {
+            border-radius: 5px;
+            background-color: #F859A8;
+        }
+
+        *::-webkit-scrollbar-thumb:hover {
+            background-color: #F888C4;
+        }
+
+        *::-webkit-scrollbar-thumb:active {
+            background-color: #F83B93;
+        }
+
+        *::selection {
+            background-color: var(--secondary-accent);
+            color: var(--text-accent);
+        }
+
+        html {
+            font-size: 14px;
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--main-bg);
+            color: var(--main-text);
+            font-family: "Comfortaa", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+            overflow-x: hidden;
+        }
+
+        main {
+            max-width: 100vw;
+        }
+
+        figure {
+            margin: 0;
+        }
+
+        figcaption {
+            text-align: center;
+            color: var(--text-bright);
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            user-select: none;
+        }
+
+        a {
+            color: inherit;
+            transition: .3s ease-in-out;
+            transition-property: color, text-decoration;
+        }
+
+        p,
+        h1,
+        h2,
+        h3,
+        h4 {
+            margin-top: 0;
+            margin-bottom: 1.2em;
+            width: fit-content;
+        }
+
+        .main-grid {
+            display: grid;
+            --padding-inline: 1rem;
+            --content-max-width: 70ch;
+            --breakout-max-width: 90ch;
+
+            --breakout-width: calc((var(--breakout-max-width) - var(--content-max-width)) / 2);
+            --half-content: min((100% - (var(--padding-inline) * 2)) / 2, var(--content-max-width) / 2);
+
+            grid-template-columns:
+                [full-start] minmax(var(--padding-inline), 1fr) [breakout-start] minmax(0, var(--breakout-width)) [content-start] var(--half-content) [middle] var(--half-content) [content-end] minmax(0, var(--breakout-width)) [breakout-end] minmax(var(--padding-inline), 1fr) [full-end];
+        }
+
+        .main-grid>.content,
+        .main-grid>.content-left,
+        .main-grid>.content-right {
+            grid-column: content;
+        }
+
+        .main-grid>.breakout,
+        .main-grid>.break-left,
+        .main-grid>.break-right {
+            grid-column: breakout;
+        }
+
+        .main-grid>.full {
+            grid-column: full;
+        }
+
+        .inline-link:hover {
+            color: var(--secondary-accent);
+            text-decoration: none;
+        }
+
+        .section {
+            padding-bottom: 3rem;
+        }
+
+        .title {
+            color: var(--main-accent);
+        }
+
+        h1.title {
+            font-size: 2.5rem;
+            line-height: 1.2;
+        }
+
+        h2.title {
+            font-size: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .title-details {
+            display: block;
+            color: var(--secondary-accent);
+            font-size: .4em;
+        }
+
+        .title,
+        .subtitle,
+        .fancy {
+            font-family: "Dela Gothic One", serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        .subtitle {
+            color: var(--secondary-accent);
+        }
+
+        .lead {
+            color: var(--text-bright);
+            font-weight: 500;
+            line-height: 1.7;
+        }
+
+        .text {
+            line-height: 1.7;
+        }
+
+        .list li::marker {
+            color: var(--secondary-accent);
+        }
+
+        .image-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(var(--width), auto));
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .figure {
+            display: flex;
+            flex-direction: column;
+            gap: 1ch;
+        }
+
+        .mob {
+            --width: 291px;
+        }
+
+        .contacts {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+            display: flex;
+        }
+
+        .contacts>li {
+            width: 48px;
+            aspect-ratio: 1;
+            display: grid;
+            place-items: stretch;
+        }
+
+        .contacts a {
+            display: grid;
+            place-items: center;
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+            .section {
+                transform: translateX(100px);
+                opacity: 0;
+                filter: blur(20px);
+                transition: .5s ease-in-out;
+                transition-property: transform, opacity, filter;
+            }
+
+            .section.show {
+                transform: translatex(0);
+                opacity: 1;
+                filter: blur(0px);
+            }
+        }
+
+        @media (min-width: 720px) {
+            html {
+                font-size: 16px;
+            }
+
+            .main-grid>.content-left {
+                grid-column: content-start / middle;
+                padding-right: .5rem;
+            }
+
+            .main-grid>.content-right {
+                grid-column: middle / content-end;
+                padding-left: .5rem;
+            }
+
+            .main-grid>.break-left {
+                grid-column: breakout-start / middle;
+                padding-right: .5rem;
+            }
+
+            .main-grid>.break-right {
+                grid-column: middle / breakout-end;
+                padding-left: .5rem;
+            }
+
+        }
+
+        @media (min-width: 1024px) {
+            h1.title {
+                font-size: 3.5rem;
+            }
+
+            h2.title {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="main-grid">
+        <h1 class="title content">
+            <span class="title-details">
+                Тестовое задание Антонова Е.
+            </span>
+            Предложения по улучшению сайта
+        </h1>
+    </header>
+    <main>
+        <section class="section main-grid">
+            <h2 class="title breakout">
+                Summary
+            </h2>
+            <p class="lead content">
+                Сайт выглядит очень приятно, имеет высокие показатели по всем метрикам, кроме производительности для
+                мобильных устройств при первом запуске. При этом, информации на нем почти нет, как и призыва к действию.
+            </p>
+            <div class="break-left">
+                <p class="text">
+                    Хорошей практикой является предоставление пользователю самой важной для него информации в первом
+                    экране, а также призыв к целевому действию. На сайте в его текущем исполнении нет ни CTA, ни
+                    ссылок на кейсы, ни галерии, ни ссылки на презентацию. Таким образом, пользователь не сможет
+                    самостоятельно составить представление о компании, как с ней взаимодествовать и какой у нее опыт.
+                </p>
+            </div>
+            <div class="break-right">
+                <h3 class="subtitle">
+                    Предложения
+                </h3>
+                <ul class="list">
+                    <li>
+                        <p class="lead">Добавить ссылку на презентацию в первый экран и в футер</p>
+                    </li>
+                    <li>
+                        <p class="lead">Выработать целевое действие пользователя и добавить призыв в первый экран и в
+                            последний</p>
+                    </li>
+                    <li>
+                        <p class="lead">Добавить описание компании, ценностей, подхода к проектам</p>
+                    </li>
+                    <li>
+                        <p class="lead">Придумать и реализовать галерею лучших кейсов</p>
+                    </li>
+                </ul>
+            </div>
+            <p class="text content">
+                Как было сказано изначально, сайт как есть уже достаточно красивый и имеет хорошие базовые показатели.
+                Далее будут несколько визуальных и технических моментов, которые можно улучшить без усилий.
+            </p>
+        </section>
+        <section class="section main-grid">
+            <h2 class="title breakout">
+                Производительность на мобильных устройствах
+            </h2>
+            <p class="lead content">
+                LCP для первой загрузки на мобильных устройствах составляет более 12 секунд, общая оценка
+                производительности составляет от 56% до 76%
+            </p>
+            <div class="content">
+                <h3 class="subtitle break-right">
+                    Предложения
+                </h3>
+                <ul class="list">
+                    <li>
+                        <p class="lead">
+                            Предоставить изображения в современных форматах
+                        </p>
+                        <p class="text">
+                            Пример: логотип Carlsberg в PNG весит 16,6 кБ, в AVIF - 2,6 кБ, в - WEBp 1,7 кБ
+                        </p>
+                    </li>
+                    <li>
+                        <p class="lead">
+                            Сделать ленивую загрузку изображений, которые не видны в первых экранах
+                        </p>
+                    </li>
+                    <li>
+                        <p class="lead">
+                            Загружать сторонние скрипты асинхронно
+                        </p>
+                        <p class="text">
+                            Сторонние скрипты лучше загружать асинхронно при помощи атрибута async, иначе они загружают
+                            основной поток и задерживают загрузку основного контента, на что и жалуется лайтхаус
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <section class="section main-grid">
+            <h2 class="title breakout">
+                Маленькая кликабельная область социальных сетей в шапке
+            </h2>
+            <p class="lead content">
+                По рекомендациям гугла, минимальная кликабельная область должна быть 48px<sup>2</sup>, сейчас у
+                социальных сетей около 27px<sup>2</sup>
+            </p>
+            <p class="text breakout">
+                Более крупная кликабельная область делает взаимодействие более приятным для пользователя как с
+                тач-устройств, так и с десктопа. При этом для такого простого улучшения не нужно изменения дизайна.
+            </p>
+            <div class="full main-grid">
+                <div class="break-left">
+                    <h3 class="subtitle">
+                        Сравнение внешнего вида
+                    </h3>
+                    <div class="image-container">
+                        <figure class="figure">
+                            <figcaption>
+                                текущая версия
+                            </figcaption>
+                            <img src="./assets/moble-header.jpg" alt="" width="370" height="70" loading="lazy">
+                        </figure>
+                        <figure class="figure">
+                            <figcaption>
+                                с большей кликабельной областью
+                            </figcaption>
+                            <img src="./assets/mobile-header-altered.jpg" alt="" width="370" height="70" loading="lazy">
+                        </figure>
+                    </div>
+                </div>
+                <div class="break-right">
+                    <h3 class="subtitle">
+                        Если задать обводку для ссылки
+                    </h3>
+                    <div class="image-container">
+                        <figure class="figure">
+                            <figcaption>
+                                сейчас
+                            </figcaption>
+                            <img src="./assets/mobile-header-alterations.jpg" alt="" width="370" height="70"
+                                loading="lazy">
+                        </figure>
+                        <figure class="figure">
+                            <figcaption>
+                                с новыми стилями
+                            </figcaption>
+                            <img src="./assets/mobile-header-altered-alterations.jpg" alt="" width="370" height="70"
+                                loading="lazy">
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section main-grid">
+            <h2 class="title breakout">
+                Неинформативное видео в первой секции
+            </h2>
+            <p class="lead content">
+                Самое важное и продающее место на сайте занято фоновым видео
+            </p>
+            <div class="break-left">
+                <p class="text">
+                    Данное видео, являясь, безусловно очень красивым, несет мало информации - в нем нет текста,
+                    призыва к действию или даже звука, если не перехоить на youtube.
+                </p>
+                <p class="text">
+                    Кроме того, родительский блок данного видео имеет соотношения сторон, которые для многих девайсов
+                    не соответствуют соотношениям видео, из-за чего возникают поля.
+                </p>
+            </div>
+            <div class="break-right">
+                <h3 class="subtitle">
+                    Предложения
+                </h3>
+                <ul class="list">
+                    <li>
+                        <p class="lead">
+                            Изменить само видео, добавив в него больше информации - короткие тесты, лозунги, громкие
+                            имена компаний, или
+                        </p>
+                    </li>
+                    <li>
+                        <p class="lead">
+                            Поменять соотношение сторон видео, чтобы оно смотрелось эстетично на всех разрешениях, и/или
+                        </p>
+                    </li>
+                    <li>
+                        <p class="lead">
+                            Добавить приветствие и призыв к действию на фоне видео
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            <h3 class="subtitle breakout">
+                Для мобильных девайсов
+            </h3>
+            <div class="full image-container mob">
+                <figure class="figure">
+                    <figcaption>текущая версия</figcaption>
+                    <img src="./assets/hero-video.jpg" alt="" width="291" height="365" loading="lazy">
+                </figure>
+                <figure class="figure">
+                    <figcaption>c новыми пропорциями</figcaption>
+                    <img src="./assets/hero-video-dimentions-altered.jpg" alt="" width="291" height="365"
+                        loading="lazy">
+                </figure>
+                <figure class="figure">
+                    <figcaption>версия с текстом и CTA</figcaption>
+                    <img src="./assets/hero-mob-altered.jpg" alt="" width="291" height="365" loading="lazy">
+                </figure>
+            </div>
+            <h3 class="subtitle breakout">
+                Для десктопа
+            </h3>
+            <div class="full image-container desk">
+                <figure class="figure">
+                    <figcaption>текущая версия</figcaption>
+                    <div>
+                        <img src="./assets/hero-desk.jpg" alt="" width="959" height="542" loading="lazy">
+                    </div>
+                </figure>
+                <figure class="figure">
+                    <figcaption>c текстом и CTA</figcaption>
+                    <div>
+                        <img src="./assets/hero-altered.jpg" alt="" width="959" height="542" loading="lazy">
+                    </div>
+                </figure>
+            </div>
+        </section>
+        <section class="section main-grid">
+            <h2 class="title breakout">
+                Секция структуры организации имеет вводящий в заблуждение дизайн
+            </h2>
+            <p class="lead content">
+                Все элементы второго уровня имеют одинаковый дизайн и эффекты по наведению, хотя кликабельный из них
+                только один. Кроме того, структура дерева не считывается в мобильной версии
+            </p>
+            <div class="break-left">
+                <p class="text">
+                    Хорошей практикой в создании пользовательских интерфейсов является особое выделение кликабельных
+                    элементов при помощи внешнего вида и эффектов. Когда происходит путаница и пользователю не понятно
+                    куда можно кликнуть, а куда нет, пользовательский опыт снижается
+                </p>
+            </div>
+            <div class="break-right">
+                <h3 class="subtitle">
+                    Предложения
+                </h3>
+                <ul class="list">
+                    <li>
+                        <p class="lead">
+                            Сделать визуальное разделение активных и не активных ссылок
+                        </p>
+                    </li>
+                    <li>
+                        <p class="lead">
+                            Убрать эффекты по наведению с не активных ссылок
+                        </p>
+                    </li>
+                    <li>
+                        <p class="lead">
+                            Сделать визуально более читаемое дерево структуры
+                        </p>
+                        <p class="text">
+                            Для мобильных устройств, самое простое это сделать связующее ветвление слева
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            <div class="full image-container" style="--width: 182px;">
+                <figure class="figure">
+                    <figcaption>
+                        Текущий вид
+                    </figcaption>
+                    <img src="./assets/structure-mobile.png" alt="" width="182" height="663" loading="lazy">
+                </figure>
+                <figure class="figure">
+                    <figcaption>
+                        Предложение
+                    </figcaption>
+                    <img src="./assets/structure-mobile-altered.jpg" alt="" width="182" height="499" loading="lazy">
+                </figure>
+            </div>
+        </section>
+    </main>
+    <footer class="section main-grid">
+        <h3 class="subtitle content">
+            Спасибо за внимание
+        </h3>
+        <div class="content-left">
+            <h4 class="lead">
+                Контакты:
+            </h4>
+            <ul class="contacts">
+                <li>
+                    <a href="mailto:alexocean.e.k@gmail.com" title="alexocean.e.k@gmail.com">
+
+                        <svg height="24" width="32">
+                            <use xlink:href="#email" />
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.linkedin.com/in/eugenia-antonova-7b4511276/" target="_blank" title="LinkedIn">
+                        <svg height="24" width="24">
+                            <use xlink:href="#linkedin" />
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://t.me/evgeniuscherepahin" target="_blank" title="telegram">
+                        <svg height="24" width="24">
+                            <use xlink:href="#telegram" />
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://wa.me/77058750949" target="_blank" title="whatsapp">
+                        <svg height="24" width="24">
+                            <use xlink:href="#whatsapp" />
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <p class="text content"><small>
+                the theme is taken from <a class="inline-link" href="https://draculatheme.com/" target="_blank"
+                    rel="noopener noreferrer">https://draculatheme.com/</a>, which I adore and use wherever possible
+            </small></p>
+    </footer>
+    <svg display="none">
+        <symbol id="email" viewBox="0 0 27 20">
+            <path
+                d="M24.3 0H2.7C1.215 0 .013 1.125.013 2.5L0 17.5C0 18.875 1.215 20 2.7 20h21.6c1.485 0 2.7-1.125 2.7-2.5v-15C27 1.125 25.785 0 24.3 0Zm-.54 5.313-9.545 5.525c-.431.25-.998.25-1.43 0L3.24 5.313a1.127 1.127 0 0 1-.348-.28 1.032 1.032 0 0 1-.202-.384.986.986 0 0 1 .139-.826c.082-.122.19-.227.317-.31a1.238 1.238 0 0 1 1.309-.001L13.5 8.75l9.045-5.237a1.237 1.237 0 0 1 1.308.001c.128.082.236.187.318.309a.986.986 0 0 1 .139.826c-.038.14-.107.27-.202.384-.094.114-.213.21-.348.28Z"
+                fill="#F859A8" />
+        </symbol>
+        <symbol id="linkedin" viewBox="0 0 20 20">
+            <path
+                d="M18.41 0H1.47A1.45 1.45 0 0 0 0 1.43v17.14A1.45 1.45 0 0 0 1.47 20h16.94a1.45 1.45 0 0 0 1.47-1.43V1.43A1.45 1.45 0 0 0 18.41 0ZM6.03 16.74h-3v-9h3v9ZM4.53 6.48a1.56 1.56 0 0 1 0-3.12 1.57 1.57 0 1 1 0 3.12Zm12.32 10.26h-3v-4.83c0-1.21-.43-2-1.52-2A1.65 1.65 0 0 0 10.79 11a1.999 1.999 0 0 0-.1.73v5h-3v-9h3V9a3 3 0 0 1 2.71-1.5c2 0 3.45 1.29 3.45 4.06v5.18Z"
+                fill="#F859A8" />
+        </symbol>
+        <symbol id="telegram" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M10 1.176a8.824 8.824 0 1 0 0 17.648 8.824 8.824 0 0 0 0-17.648ZM0 10C0 4.477 4.477 0 10 0s10 4.477 10 10-4.477 10-10 10S0 15.523 0 10Z"
+                fill="#F859A8" />
+            <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M10.002 19.411A9.412 9.412 0 0 0 19.413 10 9.412 9.412 0 0 0 10.002.588 9.412 9.412 0 0 0 .59 10a9.412 9.412 0 0 0 9.412 9.411Zm4.463-12.565-1.09 6.979a.59.59 0 0 1-.894.407l-3.65-2.287a.589.589 0 0 1-.094-.923l3.028-2.905c.033-.032-.007-.084-.047-.06l-4.39 2.628c-.26.158-.57.212-.87.153l-1.59-.307c-.573-.112-.653-.898-.113-1.121l8.502-3.516a.883.883 0 0 1 1.209.95"
+                fill="#F859A8" />
+        </symbol>
+        <symbol id="whatsapp" viewBox="0 0 20 20">
+            <path
+                d="M10 0c5.523 0 10 4.477 10 10s-4.477 10-10 10a9.95 9.95 0 0 1-5.03-1.355L.004 20l1.352-4.968A9.95 9.95 0 0 1 0 10C0 4.477 4.477 0 10 0ZM6.592 5.3l-.2.008a1 1 0 0 0-.372.1 1.3 1.3 0 0 0-.294.228c-.12.113-.188.211-.261.306a2.73 2.73 0 0 0-.566 1.678c.002.49.13.967.33 1.413.409.902 1.082 1.857 1.97 2.742.214.213.424.427.65.626a9.45 9.45 0 0 0 3.84 2.046l.568.087c.185.01.37-.004.556-.013a2 2 0 0 0 .833-.231c.13-.068.259-.141.383-.22 0 0 .042-.029.125-.09.135-.1.218-.171.33-.288.084-.087.154-.187.21-.302.078-.163.156-.474.188-.733.024-.198.017-.306.014-.373-.004-.107-.093-.218-.19-.265l-.582-.261s-.87-.379-1.402-.621a.502.502 0 0 0-.176-.041.48.48 0 0 0-.378.127c-.005-.002-.072.055-.795.931a.35.35 0 0 1-.368.13 1.4 1.4 0 0 1-.191-.066c-.124-.052-.167-.072-.252-.108a6 6 0 0 1-1.575-1.003c-.126-.11-.243-.23-.363-.346a6.3 6.3 0 0 1-1.02-1.268l-.059-.095a1 1 0 0 1-.102-.205c-.038-.147.061-.265.061-.265s.243-.266.356-.41c.11-.14.203-.276.263-.373.118-.19.155-.385.093-.536-.28-.684-.57-1.364-.868-2.041-.059-.134-.234-.23-.393-.249a3 3 0 0 0-.565-.012l.202-.007Z"
+                fill="#F859A8" />
+        </symbol>
+    </svg>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const sections = Array.from(document.querySelectorAll('.section'));
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    entry.target.classList.toggle('show', entry.isIntersecting);
+                })
+            }, {
+                threshold: .1,
+            });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            })
+        })
+
+    </script>
+</body>
+
+</html>
