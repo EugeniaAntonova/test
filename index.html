@@ -216,6 +216,10 @@
             --width: 291px;
         }
 
+        .header h1 {
+            padding-top: 1.5em;
+        }
+
         .contacts {
             margin: 0;
             padding: 0;
@@ -236,15 +240,15 @@
         }
 
         @media (prefers-reduced-motion: no-preference) {
-            .js-animatable {
-                transform: translateX(100px);
+            :where(p, h1, h2, h3, h4, li, figure) {
+                transform: translateX(-20%);
                 opacity: 0;
-                filter: blur(20px);
-                transition: .5s ease-in-out;
+                filter: blur(10px);
+                transition: .4s ease-in-out;
                 transition-property: transform, opacity, filter;
             }
 
-            .js-animatable.show {
+            :where(p, h1, h2, h3, h4, li, figure).show {
                 transform: translatex(0);
                 opacity: 1;
                 filter: blur(0px);
@@ -291,7 +295,7 @@
 </head>
 
 <body>
-    <header class="main-grid">
+    <header class="header main-grid">
         <h1 class="title content">
             <span class="title-details">
                 Тестовое задание Антонова Е.
@@ -499,13 +503,13 @@
                 <figure class="figure">
                     <figcaption>текущая версия</figcaption>
                     <div>
-                        <img src="./assets/hero-desk.jpg" alt="" width="959" height="542" loading="lazy">
+                        <img src="./assets/hero-desk.jpg" alt="" width="480" height="271" loading="lazy">
                     </div>
                 </figure>
                 <figure class="figure">
                     <figcaption>c текстом и CTA</figcaption>
                     <div>
-                        <img src="./assets/hero-altered.jpg" alt="" width="959" height="542" loading="lazy">
+                        <img src="./assets/hero-altered.jpg" alt="" width="480" height="271" loading="lazy">
                     </div>
                 </figure>
             </div>
@@ -566,7 +570,7 @@
             </div>
         </section>
     </main>
-    <footer class="section main-grid">
+    <footer class="section main-grid ">
         <h3 class="subtitle content">
             Спасибо за внимание
         </h3>
@@ -638,13 +642,13 @@
     </svg>
     <script>
         window.addEventListener('DOMContentLoaded', () => {
-            const sections = Array.from(document.querySelectorAll('.section'));
+            const sections = Array.from(document.querySelectorAll('p, h1, h2, h3, h4, li, figure'));
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach((entry) => {
                     entry.target.classList.toggle('show', entry.isIntersecting);
                 })
             }, {
-                threshold: .1,
+                threshold: .3,
             });
 
             sections.forEach(section => {
