@@ -236,7 +236,7 @@
         }
 
         @media (prefers-reduced-motion: no-preference) {
-            .section {
+            .js-animatable {
                 transform: translateX(100px);
                 opacity: 0;
                 filter: blur(20px);
@@ -244,7 +244,7 @@
                 transition-property: transform, opacity, filter;
             }
 
-            .section.show {
+            .js-animatable.show {
                 transform: translatex(0);
                 opacity: 1;
                 filter: blur(0px);
