@@ -239,15 +239,19 @@ h2.title {
     pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    :where(p, h1, h2, h3, h4, li, figure) {
-        transform: translateX(-20%);
-        opacity: 0;
-        transition: .4s ease-in-out;
-        transition-property: transform, opacity;
-    }
+:where(p, h1, h2, h3, h4, li, figure) {
+    transform: translateX(-20%);
+    opacity: 0;
+    transition: .4s ease-in-out;
+    transition-property: transform, opacity;
+}
 
-    :where(p, h1, h2, h3, h4, li, figure).show {
+:where(p, h1, h2, h3, h4, li, figure).show {
+    transform: translatex(0);
+    opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+    :where(p, h1, h2, h3, h4, li, figure) {
         transform: translatex(0);
         opacity: 1;
     }
